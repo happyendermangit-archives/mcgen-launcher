@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en"  data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCGen launcher</title>
+    <link href="bootstrap.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="@sweetalert2_theme-dark@5_dark.css" />
+    <script src="swal.js"></script>
+</head>
+<style>
+    @font-face {
+        font-family: 'Montserrat';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(./JTUSjIg1_i6t8kCHKm459Wlhyw.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }    
+    body,html{
+        background-color: #313338;
+        font-family: 'Montserrat', sans-serif;
+        zoom:150%;
+        background-size:auto;
+        background-repeat:no-repeat;
+    }   
+
+
+    .mc-account{
+        color:white;
+    }
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: #888; 
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555; 
+    }
+
+ 
+    .logo{
+        height: 50px;
+    }
+    .header{
+        top:0;
+        left:0;
+        height: 70px;
+        align-items: center;
+        box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(15px);
+    }
+    .header > center > img{
+        width:fit-content;
+        height: 50px;
+        top:30;
+    }
+    .btn-ghost{
+        --bs-btn-color:#fff;
+        --bs-btn-bg:#18181B;
+        --bs-btn-border-color:#18181B;
+        --bs-btn-hover-color:#fff;
+        --bs-btn-hover-bg:#2c2c30;
+        --bs-btn-hover-border-color:#2c2c30;
+        --bs-btn-focus-shadow-rgb:60,153,110;
+        --bs-btn-active-color:#fff;
+        --bs-btn-active-bg:#18181B;
+        --bs-btn-active-border-color:#18181B;
+        --bs-btn-active-shadow:inset 0 3px 5px rgba(0, 0, 0, 0.125);
+        --bs-btn-disabled-color:#fff;
+        --bs-btn-disabled-bg:#373737;
+        --bs-btn-disabled-border-color:#198754;
+        border:none;
+    }
+    .right{
+        float:right;
+    }
+    .item {
+        align-items: center;
+        justify-content: space-between;
+        margin: 0 auto;
+        font-size: x-small;
+        transition-duration: 0.4s;
+        height: 30px; /* Slightly increased height for better alignment */
+        position: relative;
+        border-bottom: 1px solid rgba(57, 255, 20, 0.5);
+        text-align: start;
+        cursor:pointer;
+    }
+    .item:hover {
+        transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .avatar{
+        margin-left:3px;
+        align-items: center;
+        width:fit-content;
+        height: 20px;
+        cursor:pointer; 
+        margin-bottom: -10px;
+    }
+    .name{
+        text-align: start;
+        margin-left:30px;
+        margin-top:-10px;
+    }
+    .logo{
+        height: 30px;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        position: absolute;
+        margin-top: -40px;
+    }
+    #login-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px;
+}
+
+#login-card > * {
+  flex: 0 0 calc(33.33% - 20px);
+  margin: 10px;
+}
+</style>
+<body>    <div class="header">
+    <center>
+    <br>
+    <img src="Branding/model.png" alt="Logo"></img>
+    </center>
+</div>
+<br><br><br>   
+    <center>     
+
+    <div class="login-card" id="login-card">
+        <br>
+        <div class="item"  onclick="addAccount()">
+            <img src="pfps/add.png" class="avatar"></img>
+            <p class="name">Add an account.</p>
+        </div>
+    </div>
+</center>
+    <br><br>
+
+</body>
+<script defer>
+function chooseRandomItem(list){
+    return list[Math.floor(Math.random() * list.length)]
+}
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+
+    let bg= chooseRandomItem(["1","2","3"])
+    let background = `backgrounds/${bg}.png`
+
+    document.querySelector('html').style = `background-size:cover;background-image:url('${background}')`
+    document.querySelector('body').style = `background-size:cover;background-image:url('${background}')`
+
+    const win = require('electron').remote
+    const ipcRenderer = require('electron').ipcRenderer
+    
+
+});
+
+
+function selectUser(username){
+    if (localStorage.getItem('config')){
+        let config = JSON.parse(localStorage.config) 
+        config["username"]=username
+        localStorage.setItem('config',JSON.stringify(config))
+        location.href = "./index.html"
+    }else{
+        localStorage.setItem('config',JSON.stringify({"username":username}))
+    }
+}
+
+
+function addAccount(){
+
+    Swal.fire({
+        title: 'Enter the account username',
+        input: 'text',
+        inputAttributes: {
+            autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Add account',
+        showLoaderOnConfirm: true,
+
+        preConfirm: (login) => {
+
+            if (!login.length > 16){
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'The username has more then 16 characters!'
+                })
+            }
+            
+            else{
+                if (localStorage.getItem('users')){
+                    let users = JSON.parse(localStorage.users)
+                    users.push(login)
+                    localStorage.setItem('users',JSON.stringify(users))
+                    let acc = createAccountElement(login)
+                    document.getElementById('login-card').innerHTML += acc
+                }
+                
+                else{
+                    localStorage.setItem('users',JSON.stringify([login]))
+                    let acc = createAccountElement(login)
+                    document.getElementById('login-card').innerHTML += acc
+                }
+
+            }
+        },
+
+        allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            
+        if (result.isConfirmed) {
+            window.reload()
+        }
+
+    })
+}
+function createAccountElement(username) {
+    let pfp = chooseRandomItem(["pfp1","pfp2","pfp3","pfp4"])
+    return `
+        <div class="item"  onclick="selectUser('${username}')">
+            <img src="pfps/${pfp}.png" class="avatar"></img>
+            <p class="name">${username}</p>
+        </div>
+    `;
+}
+
+const accountsContainer = document.getElementById('login-card');
+const usernames = JSON.parse(window.localStorage.users);
+    
+for (const user of usernames) {
+    const accountElement = createAccountElement(user);
+    accountsContainer.innerHTML += accountElement;
+}
+
+</script>
+</html>

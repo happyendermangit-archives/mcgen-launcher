@@ -1,7 +1,15 @@
-const { app, BrowserWindow } = require('electron')
-const { ipcMain } = require('electron');
+const { app, BrowserWindow,ipcMain } = require('electron')
 const { Client, Authenticator } = require('minecraft-launcher-core');
 const launcher = new Client();
+function getAppDataPath() {
+    if (process.platform === 'win32') {
+      return process.env.APPDATA || path.join(os.homedir(), 'AppData', 'Roaming');
+    } else if (process.platform === 'linux' || process.platform === 'darwin') {
+      return path.join(os.homedir());
+    } else {
+      throw new Error(`Unsupported platform: ${process.platform}`);
+    }
+  }
 ipcMain.on('launch-minecraft', (event,data) => {
 
     console.log('[LAUNCHER] Version : '+data.version+" Username : "+data.username)
@@ -9,7 +17,7 @@ ipcMain.on('launch-minecraft', (event,data) => {
     let version_type = data.version.split('-')[0]
     let opts = {
         authorization: Authenticator.getAuth(data.username),
-        root: "./minecraft",
+        root: `${getAppDataPath()}/.minecraft`,
         version: {
             number: version_id,
             type: version_type
@@ -29,21 +37,35 @@ let mainWindow
 function createWindow() {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 900,
-        height: 900,
-        autoHideMenuBar:true,
+        width: 1406,
+        height: 803,
         webPreferences: {
             nodeIntegration: true, 
-            contextIsolation: false
-            
+            contextIsolation: false,
+            enableRemoteModule: true,
+            frame:true,
+            enableRemoteModule:true,
+            devTools: true
         }
     })
-
-    mainWindow.loadFile('index.html')
-
+    //mainWindow.removeMenu()
+    mainWindow.loadFile('login.html')
+    
     
     mainWindow.on('closed', function() {
         mainWindow = null
+    })
+    ipcMain.on('minimize', () => {
+        mainWindow.minimize()
+      })
+      ipcMain.on('maximize', () => {
+        mainWindow.maximize()
+      })
+      ipcMain.on('unmaximize', () => {
+        mainWindow.unmaximize()
+      })
+      ipcMain.on('close', () => {
+        app.quit()
     })
 }
 
