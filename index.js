@@ -45,10 +45,10 @@ function createWindow() {
             enableRemoteModule: true,
             frame:true,
             enableRemoteModule:true,
-            devTools: true
+            devTools: false
         }
     })
-    //mainWindow.removeMenu()
+    mainWindow.removeMenu()
     mainWindow.loadFile('login.html')
     
     
