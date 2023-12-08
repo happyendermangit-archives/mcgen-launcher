@@ -1,6 +1,6 @@
 {
-  "mcgen.sponsors":[
+  "sponsors":[
     {"name":"MCGen server - SPONSORED","ip":"mcgen.aternos.me"}
   ],
-  "chex.discord":"https://discord.gg/wcTWac3ty3"
+  "chex_discord":"https://discord.gg/wcTWac3ty3"
 }
