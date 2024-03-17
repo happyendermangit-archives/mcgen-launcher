@@ -1,5 +1,7 @@
 const { app, BrowserWindow,ipcMain } = require('electron')
 const { Client, Authenticator } = require('minecraft-launcher-core');
+const path = require("path")
+const os = require("os")
 const launcher = new Client();
 function getAppDataPath() {
     if (process.platform === 'win32') {
