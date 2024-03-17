@@ -11,12 +11,12 @@
 ## How to run?
 1. clone the repo:
 ```sh
-$ git clone https://github.com/happyendermangit/mcgen-launcher.git
+git clone https://github.com/happyendermangit/mcgen-launcher.git
 ```
 
 2. Install modules
 ```sh
-$ npm install electron minecraft-launcher-core
+npm install electron minecraft-launcher-core
 ```
 
 2. Run the launcher
